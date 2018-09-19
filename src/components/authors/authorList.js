@@ -19,6 +19,7 @@ var AuthorList = React.createClass({
     },
 
     render: function() {
+        //debugger;
         var createAuthorRow = function(author) {
             return (
                 <tr key={author.id}>

@@ -2,9 +2,8 @@
 
 var React = require('react');
 var Router = require('react-router');
-var Link = require('react-router').Link;
+var Link = Router.Link;
 var AuthorStore = require('../../stores/authorStore');
-var AuthorActions = require('../../actions/authorActions');
 var AuthorList = require('./authorList');
 
 var AuthorPage = React.createClass({
