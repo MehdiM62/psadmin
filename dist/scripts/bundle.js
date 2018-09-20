@@ -50966,6 +50966,7 @@ var CourseForm = React.createClass({displayName: "CourseForm",
         course: React.PropTypes.object.isRequired,
         onSave: React.PropTypes.func.isRequired,
         onChange: React.PropTypes.func.isRequired,
+        onSelectChange: React.PropTypes.func.isRequired,
         errors: React.PropTypes.object
     },
     render: function() {
@@ -50985,7 +50986,7 @@ var CourseForm = React.createClass({displayName: "CourseForm",
                     selected: this.props.course.author.id, 
                     value: this.props.course.author.name, 
                     values: this.props.authors, 
-                    onChange: this.props.onChange, 
+                    onChange: this.props.onSelectChange, 
                     error: this.props.errors.title}), 
                 
                 React.createElement(Input, {
@@ -51121,6 +51122,7 @@ var CourseActions = require('../../actions/courseActions');
 var CourseStore = require('../../stores/courseStore');
 var AuthorStore = require('../../stores/authorStore');
 var Toastr = require('toastr');
+var _ = require('lodash');
 
 var ManageCoursePage = React.createClass({displayName: "ManageCoursePage",
     mixins: [
@@ -51153,10 +51155,21 @@ var ManageCoursePage = React.createClass({displayName: "ManageCoursePage",
     },
 
     setCourseState: function(event) { //called for every key press
+        //debugger;
         this.setState({dirty: true});
         var field = event.target.name;
         var value = event.target.value;
         this.state.course[field] = value;
+        return this.setState({course: this.state.course});
+    },
+
+    setCourseSelectState: function(event) { //called for every key press
+        //debugger;
+        this.setState({dirty: true});
+        var field = event.target.name;
+        var value = event.target.value;
+        var selected = _.find(this.state.authors, {id: value});
+        this.state.course[field] = {id: selected.id, name: selected.firstName + ' ' + selected.lastName};
         return this.setState({course: this.state.course});
     },
 
@@ -51195,6 +51208,7 @@ var ManageCoursePage = React.createClass({displayName: "ManageCoursePage",
                 course: this.state.course, 
                 authors: this.state.authors, 
                 onChange: this.setCourseState, 
+                onSelectChange: this.setCourseSelectState, 
                 onSave: this.saveCourse, 
                 errors: this.state.errors})
         );
@@ -51203,7 +51217,7 @@ var ManageCoursePage = React.createClass({displayName: "ManageCoursePage",
 
 module.exports = ManageCoursePage;
 
-},{"../../actions/courseActions":206,"../../stores/authorStore":231,"../../stores/courseStore":232,"./courseForm":221,"react":203,"react-router":33,"toastr":204}],225:[function(require,module,exports){
+},{"../../actions/courseActions":206,"../../stores/authorStore":231,"../../stores/courseStore":232,"./courseForm":221,"lodash":6,"react":203,"react-router":33,"toastr":204}],225:[function(require,module,exports){
 "use strict";
 
 var React = require("react");

@@ -7,6 +7,7 @@ var CourseActions = require('../../actions/courseActions');
 var CourseStore = require('../../stores/courseStore');
 var AuthorStore = require('../../stores/authorStore');
 var Toastr = require('toastr');
+var _ = require('lodash');
 
 var ManageCoursePage = React.createClass({
     mixins: [
@@ -39,10 +40,21 @@ var ManageCoursePage = React.createClass({
     },
 
     setCourseState: function(event) { //called for every key press
+        //debugger;
         this.setState({dirty: true});
         var field = event.target.name;
         var value = event.target.value;
         this.state.course[field] = value;
+        return this.setState({course: this.state.course});
+    },
+
+    setCourseSelectState: function(event) { //called for every key press
+        //debugger;
+        this.setState({dirty: true});
+        var field = event.target.name;
+        var value = event.target.value;
+        var selected = _.find(this.state.authors, {id: value});
+        this.state.course[field] = {id: selected.id, name: selected.firstName + ' ' + selected.lastName};
         return this.setState({course: this.state.course});
     },
 
@@ -81,6 +93,7 @@ var ManageCoursePage = React.createClass({
                 course={this.state.course}
                 authors = {this.state.authors}
                 onChange={this.setCourseState}
+                onSelectChange = {this.setCourseSelectState}
                 onSave={this.saveCourse} 
                 errors={this.state.errors}/>
         );

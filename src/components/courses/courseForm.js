@@ -9,6 +9,7 @@ var CourseForm = React.createClass({
         course: React.PropTypes.object.isRequired,
         onSave: React.PropTypes.func.isRequired,
         onChange: React.PropTypes.func.isRequired,
+        onSelectChange: React.PropTypes.func.isRequired,
         errors: React.PropTypes.object
     },
     render: function() {
@@ -28,7 +29,7 @@ var CourseForm = React.createClass({
                     selected={this.props.course.author.id}
                     value={this.props.course.author.name}
                     values= {this.props.authors}
-                    onChange={this.props.onChange}
+                    onChange={this.props.onSelectChange}
                     error={this.props.errors.title} />
                 
                 <Input 
