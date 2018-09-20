@@ -23,7 +23,7 @@ var ManageCoursePage = React.createClass({
 
     getInitialState: function() {
         return {
-            course: {id: '', title: '', watchHref: '', author: null, length: '', category: ''},
+            course: {id: '', title: '', watchHref: '', author: {id: '', name: ''}, length: '', category: ''},
             errors: {},
             dirty: false,
             authors: AuthorStore.getAllAuthors()
